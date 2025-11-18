@@ -12,19 +12,22 @@ option java_outer_classname = "C2NProtoV1";
 // The greeting service definition.
 service C2N {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {
+  rpc SignRegistration (SignRegisterRequest) returns (SignRegisterReply) {
     option (google.api.http) = {
-      get: "/helloworld/{name}"
+      post: "/encode/sign_registration",
+      body: "*"
     };
   }
 }
 
 // The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+message SignRegisterRequest {
+  string user_address = 1;
+  string contract_address = 2;
 }
 
 // The response message containing the greetings
-message HelloReply {
-  string message = 1;
+message SignRegisterReply {
+  int64 code = 1;
+  string data = 2;
 }

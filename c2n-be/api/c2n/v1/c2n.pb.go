@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.31.1
-// source: helloworld/v1/c2n.proto
+// source: c2n/v1/c2n.proto
 
 package v1
 
@@ -23,28 +23,29 @@ const (
 )
 
 // The request message containing the user's name.
-type HelloRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+type SignRegisterRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	UserAddress     string                 `protobuf:"bytes,1,opt,name=user_address,json=userAddress,proto3" json:"user_address,omitempty"`
+	ContractAddress string                 `protobuf:"bytes,2,opt,name=contract_address,json=contractAddress,proto3" json:"contract_address,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
-func (x *HelloRequest) Reset() {
-	*x = HelloRequest{}
-	mi := &file_helloworld_v1_c2n_proto_msgTypes[0]
+func (x *SignRegisterRequest) Reset() {
+	*x = SignRegisterRequest{}
+	mi := &file_c2n_v1_c2n_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *HelloRequest) String() string {
+func (x *SignRegisterRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*HelloRequest) ProtoMessage() {}
+func (*SignRegisterRequest) ProtoMessage() {}
 
-func (x *HelloRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_helloworld_v1_c2n_proto_msgTypes[0]
+func (x *SignRegisterRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_c2n_v1_c2n_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,41 +56,49 @@ func (x *HelloRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use HelloRequest.ProtoReflect.Descriptor instead.
-func (*HelloRequest) Descriptor() ([]byte, []int) {
-	return file_helloworld_v1_c2n_proto_rawDescGZIP(), []int{0}
+// Deprecated: Use SignRegisterRequest.ProtoReflect.Descriptor instead.
+func (*SignRegisterRequest) Descriptor() ([]byte, []int) {
+	return file_c2n_v1_c2n_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *HelloRequest) GetName() string {
+func (x *SignRegisterRequest) GetUserAddress() string {
 	if x != nil {
-		return x.Name
+		return x.UserAddress
+	}
+	return ""
+}
+
+func (x *SignRegisterRequest) GetContractAddress() string {
+	if x != nil {
+		return x.ContractAddress
 	}
 	return ""
 }
 
 // The response message containing the greetings
-type HelloReply struct {
+type SignRegisterReply struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Code          int64                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Data          string                 `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *HelloReply) Reset() {
-	*x = HelloReply{}
-	mi := &file_helloworld_v1_c2n_proto_msgTypes[1]
+func (x *SignRegisterReply) Reset() {
+	*x = SignRegisterReply{}
+	mi := &file_c2n_v1_c2n_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *HelloReply) String() string {
+func (x *SignRegisterReply) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*HelloReply) ProtoMessage() {}
+func (*SignRegisterReply) ProtoMessage() {}
 
-func (x *HelloReply) ProtoReflect() protoreflect.Message {
-	mi := &file_helloworld_v1_c2n_proto_msgTypes[1]
+func (x *SignRegisterReply) ProtoReflect() protoreflect.Message {
+	mi := &file_c2n_v1_c2n_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -100,53 +109,61 @@ func (x *HelloReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use HelloReply.ProtoReflect.Descriptor instead.
-func (*HelloReply) Descriptor() ([]byte, []int) {
-	return file_helloworld_v1_c2n_proto_rawDescGZIP(), []int{1}
+// Deprecated: Use SignRegisterReply.ProtoReflect.Descriptor instead.
+func (*SignRegisterReply) Descriptor() ([]byte, []int) {
+	return file_c2n_v1_c2n_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *HelloReply) GetMessage() string {
+func (x *SignRegisterReply) GetCode() int64 {
 	if x != nil {
-		return x.Message
+		return x.Code
+	}
+	return 0
+}
+
+func (x *SignRegisterReply) GetData() string {
+	if x != nil {
+		return x.Data
 	}
 	return ""
 }
 
-var File_helloworld_v1_c2n_proto protoreflect.FileDescriptor
+var File_c2n_v1_c2n_proto protoreflect.FileDescriptor
 
-const file_helloworld_v1_c2n_proto_rawDesc = "" +
+const file_c2n_v1_c2n_proto_rawDesc = "" +
 	"\n" +
-	"\x17helloworld/v1/c2n.proto\x12\x06c2n.v1\x1a\x1cgoogle/api/annotations.proto\"\"\n" +
-	"\fHelloRequest\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\"&\n" +
-	"\n" +
-	"HelloReply\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2W\n" +
-	"\x03C2N\x12P\n" +
-	"\bSayHello\x12\x14.c2n.v1.HelloRequest\x1a\x12.c2n.v1.HelloReply\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/helloworld/{name}B;\n" +
+	"\x10c2n/v1/c2n.proto\x12\x06c2n.v1\x1a\x1cgoogle/api/annotations.proto\"c\n" +
+	"\x13SignRegisterRequest\x12!\n" +
+	"\fuser_address\x18\x01 \x01(\tR\vuserAddress\x12)\n" +
+	"\x10contract_address\x18\x02 \x01(\tR\x0fcontractAddress\";\n" +
+	"\x11SignRegisterReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x12\n" +
+	"\x04data\x18\x02 \x01(\tR\x04data2w\n" +
+	"\x03C2N\x12p\n" +
+	"\x10SignRegistration\x12\x1b.c2n.v1.SignRegisterRequest\x1a\x19.c2n.v1.SignRegisterReply\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/encode/sign_registrationB;\n" +
 	"\x15dev.kratos.api.c2n.v1B\n" +
 	"C2NProtoV1P\x01Z\x14c2n-be/api/c2n/v1;v1b\x06proto3"
 
 var (
-	file_helloworld_v1_c2n_proto_rawDescOnce sync.Once
-	file_helloworld_v1_c2n_proto_rawDescData []byte
+	file_c2n_v1_c2n_proto_rawDescOnce sync.Once
+	file_c2n_v1_c2n_proto_rawDescData []byte
 )
 
-func file_helloworld_v1_c2n_proto_rawDescGZIP() []byte {
-	file_helloworld_v1_c2n_proto_rawDescOnce.Do(func() {
-		file_helloworld_v1_c2n_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_helloworld_v1_c2n_proto_rawDesc), len(file_helloworld_v1_c2n_proto_rawDesc)))
+func file_c2n_v1_c2n_proto_rawDescGZIP() []byte {
+	file_c2n_v1_c2n_proto_rawDescOnce.Do(func() {
+		file_c2n_v1_c2n_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_c2n_v1_c2n_proto_rawDesc), len(file_c2n_v1_c2n_proto_rawDesc)))
 	})
-	return file_helloworld_v1_c2n_proto_rawDescData
+	return file_c2n_v1_c2n_proto_rawDescData
 }
 
-var file_helloworld_v1_c2n_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_helloworld_v1_c2n_proto_goTypes = []any{
-	(*HelloRequest)(nil), // 0: c2n.v1.HelloRequest
-	(*HelloReply)(nil),   // 1: c2n.v1.HelloReply
+var file_c2n_v1_c2n_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_c2n_v1_c2n_proto_goTypes = []any{
+	(*SignRegisterRequest)(nil), // 0: c2n.v1.SignRegisterRequest
+	(*SignRegisterReply)(nil),   // 1: c2n.v1.SignRegisterReply
 }
-var file_helloworld_v1_c2n_proto_depIdxs = []int32{
-	0, // 0: c2n.v1.C2N.SayHello:input_type -> c2n.v1.HelloRequest
-	1, // 1: c2n.v1.C2N.SayHello:output_type -> c2n.v1.HelloReply
+var file_c2n_v1_c2n_proto_depIdxs = []int32{
+	0, // 0: c2n.v1.C2N.SignRegistration:input_type -> c2n.v1.SignRegisterRequest
+	1, // 1: c2n.v1.C2N.SignRegistration:output_type -> c2n.v1.SignRegisterReply
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -154,26 +171,26 @@ var file_helloworld_v1_c2n_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_helloworld_v1_c2n_proto_init() }
-func file_helloworld_v1_c2n_proto_init() {
-	if File_helloworld_v1_c2n_proto != nil {
+func init() { file_c2n_v1_c2n_proto_init() }
+func file_c2n_v1_c2n_proto_init() {
+	if File_c2n_v1_c2n_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_helloworld_v1_c2n_proto_rawDesc), len(file_helloworld_v1_c2n_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_c2n_v1_c2n_proto_rawDesc), len(file_c2n_v1_c2n_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_helloworld_v1_c2n_proto_goTypes,
-		DependencyIndexes: file_helloworld_v1_c2n_proto_depIdxs,
-		MessageInfos:      file_helloworld_v1_c2n_proto_msgTypes,
+		GoTypes:           file_c2n_v1_c2n_proto_goTypes,
+		DependencyIndexes: file_c2n_v1_c2n_proto_depIdxs,
+		MessageInfos:      file_c2n_v1_c2n_proto_msgTypes,
 	}.Build()
-	File_helloworld_v1_c2n_proto = out.File
-	file_helloworld_v1_c2n_proto_goTypes = nil
-	file_helloworld_v1_c2n_proto_depIdxs = nil
+	File_c2n_v1_c2n_proto = out.File
+	file_c2n_v1_c2n_proto_goTypes = nil
+	file_c2n_v1_c2n_proto_depIdxs = nil
 }

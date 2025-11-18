@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v6.31.1
-// source: helloworld/v1/c2n.proto
+// source: c2n/v1/c2n.proto
 
 package v1
 
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	C2N_SayHello_FullMethodName = "/c2n.v1.C2N/SayHello"
+	C2N_SignRegistration_FullMethodName = "/c2n.v1.C2N/SignRegistration"
 )
 
 // C2NClient is the client API for C2N service.
@@ -29,7 +29,7 @@ const (
 // The greeting service definition.
 type C2NClient interface {
 	// Sends a greeting
-	SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
+	SignRegistration(ctx context.Context, in *SignRegisterRequest, opts ...grpc.CallOption) (*SignRegisterReply, error)
 }
 
 type c2NClient struct {
@@ -40,10 +40,10 @@ func NewC2NClient(cc grpc.ClientConnInterface) C2NClient {
 	return &c2NClient{cc}
 }
 
-func (c *c2NClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
+func (c *c2NClient) SignRegistration(ctx context.Context, in *SignRegisterRequest, opts ...grpc.CallOption) (*SignRegisterReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HelloReply)
-	err := c.cc.Invoke(ctx, C2N_SayHello_FullMethodName, in, out, cOpts...)
+	out := new(SignRegisterReply)
+	err := c.cc.Invoke(ctx, C2N_SignRegistration_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *c2NClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc
 // The greeting service definition.
 type C2NServer interface {
 	// Sends a greeting
-	SayHello(context.Context, *HelloRequest) (*HelloReply, error)
+	SignRegistration(context.Context, *SignRegisterRequest) (*SignRegisterReply, error)
 	mustEmbedUnimplementedC2NServer()
 }
 
@@ -68,8 +68,8 @@ type C2NServer interface {
 // pointer dereference when methods are called.
 type UnimplementedC2NServer struct{}
 
-func (UnimplementedC2NServer) SayHello(context.Context, *HelloRequest) (*HelloReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SayHello not implemented")
+func (UnimplementedC2NServer) SignRegistration(context.Context, *SignRegisterRequest) (*SignRegisterReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SignRegistration not implemented")
 }
 func (UnimplementedC2NServer) mustEmbedUnimplementedC2NServer() {}
 func (UnimplementedC2NServer) testEmbeddedByValue()             {}
@@ -92,20 +92,20 @@ func RegisterC2NServer(s grpc.ServiceRegistrar, srv C2NServer) {
 	s.RegisterService(&C2N_ServiceDesc, srv)
 }
 
-func _C2N_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HelloRequest)
+func _C2N_SignRegistration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SignRegisterRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(C2NServer).SayHello(ctx, in)
+		return srv.(C2NServer).SignRegistration(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: C2N_SayHello_FullMethodName,
+		FullMethod: C2N_SignRegistration_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(C2NServer).SayHello(ctx, req.(*HelloRequest))
+		return srv.(C2NServer).SignRegistration(ctx, req.(*SignRegisterRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -118,10 +118,10 @@ var C2N_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*C2NServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SayHello",
-			Handler:    _C2N_SayHello_Handler,
+			MethodName: "SignRegistration",
+			Handler:    _C2N_SignRegistration_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "helloworld/v1/c2n.proto",
+	Metadata: "c2n/v1/c2n.proto",
 }

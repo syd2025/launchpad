@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-http v2.9.0
 // - protoc             v6.31.1
-// source: helloworld/v1/c2n.proto
+// source: c2n/v1/c2n.proto
 
 package v1
 
@@ -19,43 +19,43 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationC2NSayHello = "/c2n.v1.C2N/SayHello"
+const OperationC2NSignRegistration = "/c2n.v1.C2N/SignRegistration"
 
 type C2NHTTPServer interface {
-	// SayHello Sends a greeting
-	SayHello(context.Context, *HelloRequest) (*HelloReply, error)
+	// SignRegistration Sends a greeting
+	SignRegistration(context.Context, *SignRegisterRequest) (*SignRegisterReply, error)
 }
 
 func RegisterC2NHTTPServer(s *http.Server, srv C2NHTTPServer) {
 	r := s.Route("/")
-	r.GET("/helloworld/{name}", _C2N_SayHello0_HTTP_Handler(srv))
+	r.POST("/encode/sign_registration", _C2N_SignRegistration0_HTTP_Handler(srv))
 }
 
-func _C2N_SayHello0_HTTP_Handler(srv C2NHTTPServer) func(ctx http.Context) error {
+func _C2N_SignRegistration0_HTTP_Handler(srv C2NHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in HelloRequest
+		var in SignRegisterRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		if err := ctx.BindVars(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, OperationC2NSayHello)
+		http.SetOperation(ctx, OperationC2NSignRegistration)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.SayHello(ctx, req.(*HelloRequest))
+			return srv.SignRegistration(ctx, req.(*SignRegisterRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*HelloReply)
+		reply := out.(*SignRegisterReply)
 		return ctx.Result(200, reply)
 	}
 }
 
 type C2NHTTPClient interface {
-	// SayHello Sends a greeting
-	SayHello(ctx context.Context, req *HelloRequest, opts ...http.CallOption) (rsp *HelloReply, err error)
+	// SignRegistration Sends a greeting
+	SignRegistration(ctx context.Context, req *SignRegisterRequest, opts ...http.CallOption) (rsp *SignRegisterReply, err error)
 }
 
 type C2NHTTPClientImpl struct {
@@ -66,14 +66,14 @@ func NewC2NHTTPClient(client *http.Client) C2NHTTPClient {
 	return &C2NHTTPClientImpl{client}
 }
 
-// SayHello Sends a greeting
-func (c *C2NHTTPClientImpl) SayHello(ctx context.Context, in *HelloRequest, opts ...http.CallOption) (*HelloReply, error) {
-	var out HelloReply
-	pattern := "/helloworld/{name}"
-	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationC2NSayHello))
+// SignRegistration Sends a greeting
+func (c *C2NHTTPClientImpl) SignRegistration(ctx context.Context, in *SignRegisterRequest, opts ...http.CallOption) (*SignRegisterReply, error) {
+	var out SignRegisterReply
+	pattern := "/encode/sign_registration"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationC2NSignRegistration))
 	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

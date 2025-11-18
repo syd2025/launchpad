@@ -7,32 +7,42 @@ info:
     description: The greeting service definition.
     version: 0.0.1
 paths:
-    /helloworld/{name}:
-        get:
+    /encode/sign_registration:
+        post:
             tags:
                 - C2N
             description: Sends a greeting
-            operationId: C2N_SayHello
-            parameters:
-                - name: name
-                  in: path
-                  required: true
-                  schema:
-                    type: string
+            operationId: C2N_SignRegistration
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/c2n.v1.SignRegisterRequest'
+                required: true
             responses:
                 "200":
                     description: OK
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/c2n.v1.HelloReply'
+                                $ref: '#/components/schemas/c2n.v1.SignRegisterReply'
 components:
     schemas:
-        c2n.v1.HelloReply:
+        c2n.v1.SignRegisterReply:
             type: object
             properties:
-                message:
+                code:
+                    type: string
+                data:
                     type: string
             description: The response message containing the greetings
+        c2n.v1.SignRegisterRequest:
+            type: object
+            properties:
+                userAddress:
+                    type: string
+                contractAddress:
+                    type: string
+            description: The request message containing the user's name.
 tags:
     - name: C2N
