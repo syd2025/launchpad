@@ -11,17 +11,17 @@ import (
 type C2NService struct {
 	v1.UnsafeC2NServer
 
-	uc *biz.C2NUsecase
+	cu *biz.C2NUsecase
 }
 
 // NewGreeterService new a greeter service.
-func NewC2NService(uc *biz.C2NUsecase) *C2NService {
-	return &C2NService{uc: uc}
+func NewC2NService(cu *biz.C2NUsecase) *C2NService {
+	return &C2NService{cu: cu}
 }
 
 // SayHello implements helloworld.GreeterServer.
 func (s *C2NService) SignRegistration(ctx context.Context, in *v1.SignRegisterRequest) (*v1.SignRegisterReply, error) {
-	g, err := s.uc.CreateC2N(ctx, &biz.C2N{UserAddress: in.UserAddress, ContractAddress: in.ContractAddress})
+	g, err := s.cu.CreateC2N(ctx, &biz.C2N{UserAddress: in.UserAddress, ContractAddress: in.ContractAddress})
 	if err != nil {
 		return nil, err
 	}

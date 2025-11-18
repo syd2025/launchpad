@@ -41,7 +41,7 @@ func NewC2NUsecase(repo C2NRepo, logger log.Logger) *C2NUsecase {
 }
 
 // CreateGreeter creates a Greeter, and returns the new Greeter.
-func (uc *C2NUsecase) CreateC2N(ctx context.Context, g *C2N) (*C2N, error) {
-	uc.log.WithContext(ctx).Infof("CreateGreeter: %v", g.UserAddress)
-	return uc.repo.SignRegistration(ctx, g)
+func (cu *C2NUsecase) CreateC2N(ctx context.Context, g *C2N) (*C2N, error) {
+	cu.log.WithContext(ctx).Infof("CreateC2N: %v", g.UserAddress)
+	return cu.repo.SignRegistration(ctx, g)
 }
