@@ -11,26 +11,25 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type C2nbeLogic struct {
+type SignRegistrationLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewC2nbeLogic(ctx context.Context, svcCtx *svc.ServiceContext) *C2nbeLogic {
-	return &C2nbeLogic{
+func NewSignRegistrationLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SignRegistrationLogic {
+	return &SignRegistrationLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-// 签名注册, 拼接userAddress和contractAddress, 调用签名服务
-func (l *C2nbeLogic) SignRegistration(req *types.SignRegistrationRequest) (resp *types.SignRegistrationResponse, err error) {
+func (l *SignRegistrationLogic) SignRegistration(req *types.SignRegistrationRequest) (resp *types.SignRegistrationResponse, err error) {
 	if req.UserAddress == "" || req.ContractAddress == "" {
 		return &types.SignRegistrationResponse{
 			Code:    400,
-			Message: "参数错误",
+			Message: "params error",
 		}, nil
 	}
 
@@ -40,7 +39,7 @@ func (l *C2nbeLogic) SignRegistration(req *types.SignRegistrationRequest) (resp 
 	contractAddr := utils.CleanHexPrefix(req.ContractAddress)
 	userAddr := utils.CleanHexPrefix(req.UserAddress)
 
-	// 拼接并转换为小写
+	// 拼接并转换小写
 	concat := strings.ToLower(userAddr + contractAddr)
 	hex := "0x" + concat
 
@@ -49,17 +48,13 @@ func (l *C2nbeLogic) SignRegistration(req *types.SignRegistrationRequest) (resp 
 	if err != nil {
 		return &types.SignRegistrationResponse{
 			Code:    500,
-			Message: "sign failed",
+			Message: "sign error",
 		}, nil
 	}
 
 	return &types.SignRegistrationResponse{
 		Code:    200,
-		Message: "sign success",
+		Message: "success",
 		Data:    sign,
 	}, nil
-}
-
-func (l *C2nbeLogic) SignParticipation(req *types.SignRegistrationRequest) (resp *types.SignRegistrationResponse, err error) {
-	return nil, nil
 }

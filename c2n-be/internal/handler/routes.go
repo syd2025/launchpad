@@ -15,9 +15,14 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
-				Path:    "/from/:name",
-				Handler: C2nbeHandler(serverCtx),
+				Method:  http.MethodPost,
+				Path:    "/encode/sign_participation",
+				Handler: SignParticipationHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/encode/sign_registration",
+				Handler: SignRegistrationHandler(serverCtx),
 			},
 		},
 	)

@@ -1,15 +1,33 @@
 syntax = "v1"
 
-type Request {
-	Name string `path:"name,options=you|me"`
+type SignRegistrationRequest {
+	UserAddress     string `json:"user_address"`
+	ContractAddress string `json:"contract_address"`
 }
 
-type Response {
+type SignRegistrationResponse {
+	Code    int    `json:"code"`
 	Message string `json:"message"`
+	Data    string `json:"data"`
+}
+
+type SignParticipationRequest {
+	UserAddress     string `json:"user_address"`
+	ContractAddress string `json:"contract_address"`
+	Amount          string `json:"amount"`
+}
+
+type SignParticipationResponse {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+	Data    string `json:"data"`
 }
 
 service c2nbe-api {
-	@handler C2nbeHandler
-	get /from/:name (Request) returns (Response)
+	@handler SignRegistrationHandler
+	post /encode/sign_registration (SignRegistrationRequest) returns (SignRegistrationResponse)
+
+	@handler SignParticipationHandler
+	post /encode/sign_participation (SignParticipationRequest) returns (SignParticipationResponse)
 }
 

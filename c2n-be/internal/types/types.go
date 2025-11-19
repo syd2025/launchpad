@@ -3,10 +3,25 @@
 
 package types
 
-type Request struct {
-	Name string `path:"name,options=you|me"`
+type SignParticipationRequest struct {
+	UserAddress     string `json:"user_address"`
+	ContractAddress string `json:"contract_address"`
+	Amount          string `json:"amount"`
 }
 
-type Response struct {
+type SignParticipationResponse struct {
+	Code    int    `json:"code"`
 	Message string `json:"message"`
+	Data    string `json:"data"`
+}
+
+type SignRegistrationRequest struct {
+	UserAddress     string `json:"user_address"`
+	ContractAddress string `json:"contract_address"`
+}
+
+type SignRegistrationResponse struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+	Data    string `json:"data"`
 }
