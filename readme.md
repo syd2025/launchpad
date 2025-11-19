@@ -10,3 +10,9 @@
 - 前端部分
 
 - 后端部分
+  基于 golang（go-zero 框架实现） 的后端服务，主要负责合约的调用，以及数据的存储
+
+```shell
+goctl api go -api c2nbe.api --dir . --style go_zero
+
+```
