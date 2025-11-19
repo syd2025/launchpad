@@ -59,7 +59,3 @@ func (l *C2nbeLogic) SignRegistration(req *types.SignRegistrationRequest) (resp 
 		Data:    sign,
 	}, nil
 }
-
-func (l *C2nbeLogic) SignParticipation(req *types.SignRegistrationRequest) (resp *types.SignRegistrationResponse, err error) {
-	return nil, nil
-}
