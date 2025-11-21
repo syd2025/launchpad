@@ -46,7 +46,7 @@ func (l *SignParticipationLogic) SignParticipation(req *types.SignParticipationR
 	if !ok {
 		return nil, fmt.Errorf("amount format error")
 	}
-	amountHex := fmt.Sprintf("%64s", amountInt.Text(16))
+	amountHex := fmt.Sprintf("%064s", amountInt.Text(16))
 
 	// 拼接数据
 	data := strings.ToLower(userAddr + amountHex + contractAddr)
